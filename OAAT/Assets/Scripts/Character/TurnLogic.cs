@@ -8,8 +8,10 @@ public class TurnLogic : MonoBehaviour
     public bool ally = false;
     private SpriteRenderer spriteRenderer;
     private TurnManager manager;
+    [SerializeField] private Jump jump;
     public Material def;
     public Material grey;
+    public GameObject UI;
 
     void Start()
     {
@@ -31,25 +33,30 @@ public class TurnLogic : MonoBehaviour
         {
             Invoke(nameof(endTurn), 2f);
         }
-    }
-
-    void Update()
-    {
-        
-        if (ally && active)
+        else
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                endTurn();
-            }
+            UI.SetActive(true);
         }
-        
     }
 
-    void endTurn()
+    
+
+    public void endTurn()
     {
+        if (ally)
+        {
+            UI.SetActive(false);
+        }
         active = false;
         spriteRenderer.material = grey;
         manager.endTurn();
     }
+
+    public void Jump()
+    {
+        UI.SetActive(false);
+        jump.Activate();
+    }
+
+    
 }

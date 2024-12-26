@@ -55,6 +55,5 @@ public class TurnManager : MonoBehaviour
         }
         
         order[turn].startTurn();
-        _camera.transform.position = new Vector3(order[turn].gameObject.transform.position.x, order[turn].gameObject.transform.position.y, _camera.transform.position.z);
     }
 }
