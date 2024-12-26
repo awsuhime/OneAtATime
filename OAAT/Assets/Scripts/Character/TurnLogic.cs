@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TurnLogic : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class TurnLogic : MonoBehaviour
     public Material def;
     public Material grey;
     public GameObject UI;
+    public TextMeshProUGUI jumpText;
 
     void Start()
     {
@@ -36,6 +38,7 @@ public class TurnLogic : MonoBehaviour
         else
         {
             UI.SetActive(true);
+            jumpText.text = "Jumps: " + jump.jumpsAvailable;
         }
     }
 
@@ -46,7 +49,12 @@ public class TurnLogic : MonoBehaviour
         if (ally)
         {
             UI.SetActive(false);
+            if (jump.jumpsAvailable < jump.maxJumpsAvailable)
+            {
+                jump.jumpsAvailable++;
+            }
         }
+        
         active = false;
         spriteRenderer.material = grey;
         manager.endTurn();
@@ -54,7 +62,6 @@ public class TurnLogic : MonoBehaviour
 
     public void Jump()
     {
-        UI.SetActive(false);
         jump.Activate();
     }
 
