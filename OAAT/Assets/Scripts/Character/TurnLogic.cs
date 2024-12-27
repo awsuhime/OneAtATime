@@ -10,6 +10,7 @@ public class TurnLogic : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private TurnManager manager;
     [SerializeField] private Jump jump;
+    [SerializeField] private Attack attack;
     public Material def;
     public Material grey;
     public GameObject UI;
@@ -53,17 +54,21 @@ public class TurnLogic : MonoBehaviour
             {
                 jump.jumpsAvailable++;
             }
+            attack.attacksLeft = attack.maxAttacks;
         }
         
         active = false;
         spriteRenderer.material = grey;
-        manager.endTurn();
+        manager.startSubTurn();
     }
 
     public void Jump()
     {
         jump.Activate();
     }
-
+    public void Attack()
+    {
+        attack.Activate();
+    }
     
 }
