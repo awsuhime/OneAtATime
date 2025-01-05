@@ -78,8 +78,8 @@ public class TurnManager : MonoBehaviour
                     subTurns[i].startPhase();
                 }
             }
-            
             subTurn++;
+
 
         }
         else
@@ -124,8 +124,12 @@ public class TurnManager : MonoBehaviour
         }
 
         changeSubs = subTurns.ToList();
-        subTurn--;
-        startSubTurn();
+        if (subTurn > 0)
+        {
+            subTurn--;
+            Invoke(nameof(startSubTurn), 0.25f);
+        }
+        
     }
 
     public void addSubTurn()

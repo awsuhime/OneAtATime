@@ -12,6 +12,7 @@ public class Attack : MonoBehaviour
     public Camera cam;
     public GameObject projectile;
     public TurnManager turnManager;
+    private UIManager uiManager;
     private MoveForward moveForward;
 
 
@@ -23,7 +24,7 @@ public class Attack : MonoBehaviour
     public void Start()
     {
         turnManager = FindObjectOfType<TurnManager>();
-
+        uiManager = FindObjectOfType<UIManager>();
         attacksLeft = maxAttacks;
 
     }
@@ -41,15 +42,22 @@ public class Attack : MonoBehaviour
                 
                 
                 GameObject proj = Instantiate(projectile, transform.position, Quaternion.Euler(0f, 0f, rotz));
-                //moveForward = proj.GetComponent<MoveForward>();
-                //moveForward.Initiate(this, currentID);
-                //currentID++;
-                
+                moveForward = proj.GetComponent<MoveForward>();
+                moveForward.attack = this;
+                uiManager.findToggles();
                 active = false;
-                UI.SetActive(true);
+                //UI.SetActive(true);
                 rangeVisualizer.SetActive(false);
                 turnManager.addSubTurn();
                 attacksLeft--;
+            }
+            //Cancel Attack
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                active = false;
+                UI.SetActive(true);
+                rangeVisualizer.SetActive(false);
+                
             }
 
         }
