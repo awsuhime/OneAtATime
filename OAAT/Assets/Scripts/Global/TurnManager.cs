@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -10,10 +11,12 @@ public class TurnManager : MonoBehaviour
     private int turn = 0;
     public GameObject _camera;
     private int subTurn = 0;
-    private GameObject[] subTurns;
+    //List<MoveForward> subTurns;
+    public MoveForward[] subTurns;
     private int subCount = 0;
     void Start()
     {
+
         BeginCombat();
 
     }
@@ -56,45 +59,92 @@ public class TurnManager : MonoBehaviour
             turn = 0;
             Debug.Log("Turns reset, turn " + turn);
         }
-        
+        subTurn = 0;
         order[turn].startTurn();
     }
 
     public void startSubTurn()
     {
-        /*if (subTurn < subCount)
+        if (subTurn < subCount)
         {
-            MoveForward moveForward = subTurns[subTurn].GetComponent<MoveForward>();
-            moveForward.startPhase();
-            subTurn++;
-        }
-        else
-        {
-            subTurn = 0;
-            endTurn();
-        }*/
-        if (subTurn >= 1)
-        {
-            subTurn = 0;
-            endTurn();
-        }
-        else
-        {
+            var newSub = new List<MoveForward>();
+            newSub = subTurns.ToList();
+            Debug.Log("SubTurn: " + subTurn);
+            for (int i = 0; i < newSub.Count; i++)
+            {
+                if (subTurns[i].ID == subTurn)
+                {
+                    Debug.Log(subTurns[i].ID + " matched, starting phase. GameObject name: " + subTurns[i].gameObject.name);
+                    subTurns[i].startPhase();
+                }
+            }
+            
             subTurn++;
 
-            MoveForward[] mvF = FindObjectsOfType<MoveForward>();
-            for (int i = 0; i < mvF.Length; i++)
-            {
-                mvF[i].startPhase();
-            }
         }
+        else
+        {
+            subTurn = 0;
+            endTurn();
+        }
+        
     }
 
-    public void addSubTurn(GameObject ID)
+    public void removeSubTurn(int removeID)
     {
-        Debug.Log("Added " + ID.name);
-        subTurns[subCount] = ID;
-        subCount++;
+        subCount--;
+        var newSubs = new List<MoveForward>();
+        MoveForward culprit = subTurns[0];
+        //Find Dead ID
+        newSubs = subTurns.ToList();
+        foreach (MoveForward i in newSubs)
+        {
+            if (i.ID == removeID)
+            {
+                culprit = i;
+            }
+        }
+
+        //Remove Dead ID
+        newSubs.Remove(culprit);
+        subTurns = newSubs.ToArray();
+
+        //Update IDs
+        var changeSubs = new List<MoveForward>();
+        foreach (MoveForward i in subTurns)
+        {
+            if (i.ID > removeID)
+            {
+                changeSubs.Add(i);
+            }
+        }
+        for (int i = 0; i < changeSubs.Count; i++)
+        {
+            changeSubs[i].updateID();
+        }
+
+        changeSubs = subTurns.ToList();
+        subTurn--;
+        startSubTurn();
+    }
+
+    public void addSubTurn()
+    {
+        MoveForward[] moveForward = FindObjectsOfType<MoveForward>();
+        subTurns = moveForward;
+        foreach (MoveForward i in moveForward)
+        {
+            if (!i.assigned)
+            {
+                Debug.Log("Added " + i.gameObject.name);
+
+                i.assigned = true;
+                i.Initiate(subCount);
+                //subTurns.Add(i);
+                //subTurns[subCount] = i;
+                subCount++;
+            }
+        }
     }
     public void callJump()
     {
@@ -110,4 +160,6 @@ public class TurnManager : MonoBehaviour
     {
         order[turn].Attack();
     }
+
+    
 }

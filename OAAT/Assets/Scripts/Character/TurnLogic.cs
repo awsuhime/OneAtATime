@@ -39,7 +39,7 @@ public class TurnLogic : MonoBehaviour
         else
         {
             UI.SetActive(true);
-            jumpText.text = "Jumps: " + jump.jumpsAvailable;
+            jumpText.text = "Moves: " + jump.jumpsAvailable;
         }
     }
 

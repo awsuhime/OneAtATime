@@ -13,6 +13,9 @@ public class Attack : MonoBehaviour
     public GameObject projectile;
     public TurnManager turnManager;
     private MoveForward moveForward;
+
+
+    public int currentID = 0;
     //Mouse vars
     private Vector3 rotation;
     private Vector3 mousePos;
@@ -22,6 +25,7 @@ public class Attack : MonoBehaviour
         turnManager = FindObjectOfType<TurnManager>();
 
         attacksLeft = maxAttacks;
+
     }
     public void Update()
     {
@@ -34,16 +38,17 @@ public class Attack : MonoBehaviour
             //Shooting
             if (Input.GetMouseButtonDown(0))
             {
-                projectile.SetActive(true);
-                projectile.transform.position = transform.position;
-                projectile.transform.rotation = Quaternion.Euler(0f, 0f, rotz);
-                moveForward = projectile.GetComponent<MoveForward>();
-                moveForward.Initiate();
-                //GameObject proj = Instantiate(projectile, transform.position, Quaternion.Euler(0f, 0f, rotz));
+                
+                
+                GameObject proj = Instantiate(projectile, transform.position, Quaternion.Euler(0f, 0f, rotz));
+                //moveForward = proj.GetComponent<MoveForward>();
+                //moveForward.Initiate(this, currentID);
+                //currentID++;
+                
                 active = false;
-                UI.SetActive(false);
+                UI.SetActive(true);
                 rangeVisualizer.SetActive(false);
-                //turnManager.addSubTurn(projectile);
+                turnManager.addSubTurn();
                 attacksLeft--;
             }
 
@@ -65,6 +70,11 @@ public class Attack : MonoBehaviour
         {
             Debug.Log("No attacks available");
         }
+    }
+
+    public void activateUI()
+    {
+        UI.SetActive(true);
     }
 
     

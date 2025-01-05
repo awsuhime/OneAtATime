@@ -82,7 +82,7 @@ public class Jump : MonoBehaviour
 
     private void endJump()
     {
-        jumpText.text = "Jumps: " + jumpsAvailable;
+        jumpText.text = "Moves: " + jumpsAvailable;
         UI.SetActive(true);
         rb.isKinematic = true;
         
