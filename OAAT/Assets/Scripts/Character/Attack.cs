@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Attack : MonoBehaviour
@@ -14,7 +15,7 @@ public class Attack : MonoBehaviour
     public TurnManager turnManager;
     private UIManager uiManager;
     private MoveForward moveForward;
-
+    public TextMeshProUGUI attackText;
 
     public int currentID = 0;
     //Mouse vars
@@ -50,6 +51,8 @@ public class Attack : MonoBehaviour
                 rangeVisualizer.SetActive(false);
                 turnManager.addSubTurn();
                 attacksLeft--;
+                attackText.text = "SP: " + attacksLeft;
+
             }
             //Cancel Attack
             if (Input.GetKeyDown(KeyCode.Space))

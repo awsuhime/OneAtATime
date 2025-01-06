@@ -14,6 +14,9 @@ public class TurnManager : MonoBehaviour
     //List<MoveForward> subTurns;
     public MoveForward[] subTurns;
     private int subCount = 0;
+    public GameObject UI;
+
+    public int knockbacks = 0;
     void Start()
     {
 
@@ -50,7 +53,13 @@ public class TurnManager : MonoBehaviour
 
     public void endTurn()
     {
-        
+        //Reset combos
+        Health[] health = FindObjectsOfType<Health>();
+        foreach (Health i in health)
+        {
+            i.resetCombo();
+        }
+
         turn++;
         Debug.Log("Turn " + turn);
         if (turn >= order.Length)
@@ -126,8 +135,13 @@ public class TurnManager : MonoBehaviour
         changeSubs = subTurns.ToList();
         if (subTurn > 0)
         {
-            subTurn--;
-            Invoke(nameof(startSubTurn), 0.25f);
+            if (knockbacks == 0)
+            {
+                subTurn--;
+                Invoke(nameof(startSubTurn), 0.25f);
+            }
+            
+            
         }
         
     }
@@ -163,6 +177,23 @@ public class TurnManager : MonoBehaviour
     public void callAttack()
     {
         order[turn].Attack();
+    }
+
+    public void removeKnockback()
+    {
+        knockbacks--;
+        if (knockbacks == 0)
+        {
+            if (subTurn > 0)
+            {
+                subTurn--;
+                Invoke(nameof(startSubTurn), 0.25f);
+            }
+            else
+            {
+                UI.SetActive(true);
+            }
+        }
     }
 
     

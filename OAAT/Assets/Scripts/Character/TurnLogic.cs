@@ -14,8 +14,9 @@ public class TurnLogic : MonoBehaviour
     public Material def;
     public Material grey;
     public GameObject UI;
-    public TextMeshProUGUI jumpText;
+    public TextMeshProUGUI attackText;
 
+    public float turnTime = 0.5f;
     void Start()
     {
     }
@@ -34,12 +35,13 @@ public class TurnLogic : MonoBehaviour
         active = true;
         if (!ally)
         {
-            Invoke(nameof(endTurn), 2f);
+            Invoke(nameof(endTurn), turnTime);
         }
         else
         {
+            jump.origin = transform.position;
             UI.SetActive(true);
-            jumpText.text = "Moves: " + jump.jumpsAvailable;
+            attackText.text = "SP: " + attack.maxAttacks;
         }
     }
 
@@ -50,10 +52,7 @@ public class TurnLogic : MonoBehaviour
         if (ally)
         {
             UI.SetActive(false);
-            if (jump.jumpsAvailable < jump.maxJumpsAvailable)
-            {
-                jump.jumpsAvailable++;
-            }
+            
             attack.attacksLeft = attack.maxAttacks;
         }
         

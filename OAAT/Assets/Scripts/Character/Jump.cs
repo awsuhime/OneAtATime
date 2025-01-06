@@ -12,43 +12,35 @@ public class Jump : MonoBehaviour
     public float vertJumpRange_;
     public GameObject jumpRangeIndicator;
     public GameObject hoverIndicator;
-    public int maxJumpsAvailable = 3;
-    public int jumpsAvailable;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Camera cam;
-    public TextMeshProUGUI jumpText;
-
+    public Vector3 origin;
     private float vertVel;
 
     public void Start()
     {
-        jumpsAvailable = maxJumpsAvailable;
     }
     public void Activate()
     {
-        if (jumpsAvailable > 0)
-        {
-            UI.SetActive(false);
-            active = true;
-            jumpRangeIndicator.SetActive(true);
-            hoverIndicator.SetActive(true);
+        UI.SetActive(false);
+        active = true;
+        jumpRangeIndicator.SetActive(true);
+        hoverIndicator.SetActive(true);
+        jumpRangeIndicator.transform.position = origin;
 
-        }
-        else
-        {
-            Debug.Log("No jumps available");
-        }
-        
+
+
+
     }
 
     public void Update()
     {
         if (active)
         {
-            float horiMin = transform.position.x - horiJumpRange_;
-            float horiMax = transform.position.x + horiJumpRange_;
-            float vertMin = transform.position.y - vertJumpRange_;
-            float vertMax = transform.position.y + vertJumpRange_;
+            float horiMin = origin.x - horiJumpRange_;
+            float horiMax = origin.x + horiJumpRange_;
+            float vertMin = origin.y - vertJumpRange_;
+            float vertMax = origin.y + vertJumpRange_;
 
 
 
@@ -61,30 +53,22 @@ public class Jump : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                jumpsAvailable--;
                 transform.position = mousePos;
-                rb.isKinematic = false;
                 //rb.AddForce(new(0, vertVel), ForceMode2D.Impulse);
                 active = false;
                 jumpRangeIndicator.SetActive(false);
                 hoverIndicator.SetActive(false);
+                hoverIndicator.transform.position = transform.position;
                 endJump();
             }
         }
     }
 
-    Vector2 PointPos(float t, float hori, float vert)
-    {
-        Vector2 currentPointPos;
-        currentPointPos = new Vector2(transform.position.x, transform.position.y + 1) + new Vector2(hori, vert) * t + 0.5f * Physics2D.gravity * (t * t);
-        return currentPointPos;
-    }
+    
 
     private void endJump()
     {
-        jumpText.text = "Moves: " + jumpsAvailable;
         UI.SetActive(true);
-        rb.isKinematic = true;
         
     }
 }

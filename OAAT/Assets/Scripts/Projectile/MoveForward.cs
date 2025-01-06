@@ -7,7 +7,9 @@ using TMPro;
 public class MoveForward : MonoBehaviour
 {
     public float damage = 5;
+    public int phaseBoost = 1;
     public float knockback = 1;
+    public bool explosive = false;
     public float lifeTime;
     public float speed;
     public int phases = 2;
@@ -27,7 +29,7 @@ public class MoveForward : MonoBehaviour
     public TextMeshProUGUI phaseText;
     public TextMeshProUGUI IDText;
     public int ID;
-
+    public GameObject particles;
     private float startTime;
     private Health health;
     private int hits;
@@ -53,9 +55,18 @@ public class MoveForward : MonoBehaviour
             active = false;
             if (phases <= 0)
             {
-                turnManager.removeSubTurn(ID);
+                if (explosive)
+                {
+                    Explode();
 
-                Destroy(gameObject);
+                }
+                else
+                {
+                    turnManager.removeSubTurn(ID);
+
+                    Destroy(gameObject);
+                }
+                
 
             }
             else
@@ -75,6 +86,7 @@ public class MoveForward : MonoBehaviour
 
         }
         //range = Instantiate(rangeVisualizer, transform.position, transform.rotation);
+        damage += phaseBoost;
         range.SetActive(true);
         
         
@@ -118,36 +130,51 @@ public class MoveForward : MonoBehaviour
 
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerStay2D(Collider2D collision)
     {
         if (active)
         {
             
             if (collision.gameObject.CompareTag("Terrain") || collision.gameObject.CompareTag("Enemy"))
             {
-                active = false;
-                Health[] hit = FindObjectsOfType<Health>();
-                foreach(Health i in hit)
+                if (explosive)
                 {
-                    if (Vector2.Distance(i.gameObject.transform.position, transform.position) < explosiveRange)
-                    {
-                        i.takeDamage(damage);
-                        hits++;
-                    }
-                }
-                turnManager.removeSubTurn(ID);
+                    Explode();
 
-                if (startUpPhases > 0)
-                {
-                    attack.activateUI();
                 }
-                Destroy(gameObject);
             }
             
                 
             
         }
         
+    }
+
+    public void Explode()
+    {
+        active = false;
+        Health[] hit = FindObjectsOfType<Health>();
+        foreach (Health i in hit)
+        {
+            if (Vector2.Distance(i.gameObject.transform.position, transform.position) < explosiveRange)
+            {
+                i.takeDamage(damage);
+                hits++;
+                if (knockback > 0)
+                {
+                    i.takeKnockback(transform.position, knockback);
+                    turnManager.knockbacks++;
+                }
+            }
+        }
+        Instantiate(particles, transform.position, transform.rotation);
+        turnManager.removeSubTurn(ID);
+
+        if (startUpPhases > 0 && turnManager.knockbacks == 0)
+        {
+            attack.activateUI();
+        }
+        Destroy(gameObject);
     }
 
 }

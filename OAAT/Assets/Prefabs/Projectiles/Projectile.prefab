@@ -530,11 +530,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6b242cfb2efaa44b8de8b4837583ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 7
+  phaseBoost: 2
+  knockback: 1
+  explosive: 1
   lifeTime: 0.2
   speed: 0.5
   phases: 2
   startUpPhases: 1
+  explosiveRange: 3.9
   spriteRenderer: {fileID: 6468968463811869921}
   def: {fileID: 2100000, guid: 8f724585050bef34cab1413f96ba0ab1, type: 2}
   grey: {fileID: 2100000, guid: 3274b63802ef96c47a4589258a01853a, type: 2}
@@ -548,6 +552,7 @@ MonoBehaviour:
   phaseText: {fileID: 2294481065402802223}
   IDText: {fileID: 1066315649600918521}
   ID: 0
+  particles: {fileID: 1264663472522015281, guid: f557ef7f4b53da1418f36f3482712d7f, type: 3}
 --- !u!58 &3415306687889647062
 CircleCollider2D:
   m_ObjectHideFlags: 0
