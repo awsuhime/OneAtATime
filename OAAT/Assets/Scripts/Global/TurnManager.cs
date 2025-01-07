@@ -6,9 +6,9 @@ using UnityEngine.Rendering;
 
 public class TurnManager : MonoBehaviour
 {
-    private TurnLogic[] logic;
-    private TurnLogic[] order;
-    private int turn = 0;
+    public TurnLogic[] logic;
+    public static TurnLogic[] order;
+    public static int turn = 0;
     public GameObject _camera;
     private int subTurn = 0;
     //List<MoveForward> subTurns;

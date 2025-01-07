@@ -6,7 +6,7 @@ using TMPro;
 public class Jump : MonoBehaviour
 {
     public GameObject UI;
-    private bool active = false;
+    public bool active = false;
     public float jumpTime = 1f;
     public float horiJumpRange_;
     public float vertJumpRange_;
@@ -16,6 +16,7 @@ public class Jump : MonoBehaviour
     [SerializeField] Camera cam;
     public Vector3 origin;
     private float vertVel;
+    public bool interupt = true;
 
     public void Start()
     {
@@ -53,6 +54,7 @@ public class Jump : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
+                interupt = false;
                 transform.position = mousePos;
                 //rb.AddForce(new(0, vertVel), ForceMode2D.Impulse);
                 active = false;
@@ -61,13 +63,26 @@ public class Jump : MonoBehaviour
                 hoverIndicator.transform.position = transform.position;
                 endJump();
             }
+            else if (Input.GetKeyDown(KeyCode.Space))
+            {
+                cancelMove();
+            }
         }
     }
 
+
+    public void cancelMove()
+    {
+        active = false;
+        jumpRangeIndicator.SetActive(false);
+        hoverIndicator.SetActive(false);
+        UI.SetActive(true);
+    }
     
 
     private void endJump()
     {
+        interupt = true;
         UI.SetActive(true);
         
     }

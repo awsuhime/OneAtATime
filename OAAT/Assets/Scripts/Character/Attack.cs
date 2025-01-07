@@ -8,7 +8,7 @@ public class Attack : MonoBehaviour
     public int maxAttacks = 2;
     public int attacksLeft;
     public GameObject UI;
-    private bool active;
+    public bool active;
     public GameObject rangeVisualizer;
     public Camera cam;
     public GameObject projectile;
@@ -16,6 +16,7 @@ public class Attack : MonoBehaviour
     private UIManager uiManager;
     private MoveForward moveForward;
     public TextMeshProUGUI attackText;
+    public bool interupt = true;
 
     public int currentID = 0;
     //Mouse vars
@@ -40,13 +41,13 @@ public class Attack : MonoBehaviour
             //Shooting
             if (Input.GetMouseButtonDown(0))
             {
-                
-                
+
+                interupt = false;
+
                 GameObject proj = Instantiate(projectile, transform.position, Quaternion.Euler(0f, 0f, rotz));
                 moveForward = proj.GetComponent<MoveForward>();
                 moveForward.attack = this;
                 uiManager.findToggles();
-                active = false;
                 //UI.SetActive(true);
                 rangeVisualizer.SetActive(false);
                 turnManager.addSubTurn();
@@ -57,9 +58,7 @@ public class Attack : MonoBehaviour
             //Cancel Attack
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                active = false;
-                UI.SetActive(true);
-                rangeVisualizer.SetActive(false);
+                cancelAttack();
                 
             }
 
@@ -85,8 +84,16 @@ public class Attack : MonoBehaviour
 
     public void activateUI()
     {
+        active = false;
+        interupt = true;
         UI.SetActive(true);
     }
 
+    public void cancelAttack()
+    {
+        active = false;
+        UI.SetActive(true);
+        rangeVisualizer.SetActive(false);
+    }
     
 }
