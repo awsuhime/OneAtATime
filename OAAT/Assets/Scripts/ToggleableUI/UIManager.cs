@@ -10,7 +10,8 @@ public class UIManager : MonoBehaviour
     public GameObject[] traj;
     private TurnManager manager;
     private Jump jump;
-    private Attack attack;
+    private AttackLogic attack;
+    private AttackManager attackManager;
 
     public GameObject actionUI;
     public GameObject attackUI;
@@ -26,8 +27,9 @@ public class UIManager : MonoBehaviour
         if (logic.ally)
         {
             jump = logic.GetComponent<Jump>();
-            attack = logic.GetComponent<Attack>();
-            if (jump.interupt && attack.interupt)
+            attack = logic.GetComponent<AttackLogic>();
+            attackManager = logic.GetComponent<AttackManager>();
+            if (jump.interupt && attack.interruptible)
             {
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
@@ -48,6 +50,7 @@ public class UIManager : MonoBehaviour
                     manager.callEndTurn();
                     
                 }
+                
             }
             
         }
@@ -58,7 +61,7 @@ public class UIManager : MonoBehaviour
     {
         if (attack.active)
         {
-            attack.cancelAttack();
+            //attack.cancelAttack();
         }
         else if (jump.active)
         {

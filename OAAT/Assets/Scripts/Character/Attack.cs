@@ -13,6 +13,7 @@ public class Attack : MonoBehaviour
     public Camera cam;
     public GameObject projectile;
     public TurnManager turnManager;
+    private AttackLogic attackLogic;
     private UIManager uiManager;
     private MoveForward moveForward;
     public TextMeshProUGUI attackText;
@@ -27,6 +28,7 @@ public class Attack : MonoBehaviour
     {
         turnManager = FindObjectOfType<TurnManager>();
         uiManager = FindObjectOfType<UIManager>();
+        attackLogic = GetComponent<AttackLogic>();
         attacksLeft = maxAttacks;
 
     }
@@ -42,7 +44,7 @@ public class Attack : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
 
-                interupt = false;
+                attackLogic.interruptible = false;
 
                 GameObject proj = Instantiate(projectile, transform.position, Quaternion.Euler(0f, 0f, rotz));
                 moveForward = proj.GetComponent<MoveForward>();
@@ -85,7 +87,7 @@ public class Attack : MonoBehaviour
     public void activateUI()
     {
         active = false;
-        interupt = true;
+        attackLogic.interruptible = true;
         UI.SetActive(true);
     }
 

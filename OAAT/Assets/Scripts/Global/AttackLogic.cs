@@ -18,4 +18,53 @@ public class AttackLogic : MonoBehaviour
     [SerializeField] private UnityEvent H;
     [SerializeField] private UnityEvent N;
 
+    [Header("Spell Attributes")]
+    public string[] spellNames;
+
+    public int attackCount = 1;
+    public bool interruptible = true;
+
+    public bool active;
+
+
+
+    public void useR()
+    {
+        R.Invoke();
+    }
+
+    public void useF()
+    {
+        F.Invoke();
+    }
+
+    public void useV()
+    {
+        V.Invoke();
+    }
+
+    public void useT()
+    {
+        T.Invoke();
+    }
+    public void useG()
+    {
+        G.Invoke();
+    }
+    public void useB()
+    {
+        B.Invoke();
+    }
+    public void useY()
+    {
+        Y.Invoke();
+    }
+    public void useH()
+    {
+        H.Invoke();
+    }
+    public void useN()
+    {
+        N.Invoke();
+    }
 }

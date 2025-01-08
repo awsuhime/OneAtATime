@@ -16,6 +16,8 @@ public class TurnManager : MonoBehaviour
     private int subCount = 0;
     public GameObject UI;
 
+    public static GameObject activePlayer;
+
     public int knockbacks = 0;
     void Start()
     {
@@ -47,6 +49,7 @@ public class TurnManager : MonoBehaviour
         }
         order = firstOrder.ToArray();
         turn = 0;
+        activePlayer = order[turn].gameObject;
         order[turn].startTurn();
         
     }
@@ -69,6 +72,7 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Turns reset, turn " + turn);
         }
         subTurn = 0;
+        activePlayer = order[turn].gameObject;
         order[turn].startTurn();
     }
 

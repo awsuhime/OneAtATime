@@ -15,22 +15,22 @@ public class TurnLogic : MonoBehaviour
     public Material grey;
     public GameObject UI;
     public TextMeshProUGUI attackText;
+    private AttackLogic attackLogic;
+    private AttackManager attackManager;
 
     public float turnTime = 0.5f;
     void Start()
     {
+        
+        
     }
     public void startTurn()
     {
-        if (spriteRenderer == null)
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        attackLogic = GetComponent<AttackLogic>();
+        manager = FindObjectOfType<TurnManager>();
+        attackManager = FindObjectOfType<AttackManager>();
 
-        }
-        if (manager == null)
-        {
-            manager = FindObjectOfType<TurnManager>();
-        }
         spriteRenderer.material = def;
         active = true;
         if (!ally)
@@ -39,6 +39,7 @@ public class TurnLogic : MonoBehaviour
         }
         else
         {
+            attackManager.configureSpells();
             jump.origin = transform.position;
             UI.SetActive(true);
             attackText.text = "SP: " + attack.maxAttacks;
