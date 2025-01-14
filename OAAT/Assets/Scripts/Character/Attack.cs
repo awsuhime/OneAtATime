@@ -43,9 +43,9 @@ public class Attack : MonoBehaviour
             //Shooting
             if (Input.GetMouseButtonDown(0))
             {
-
+                active = false;
                 attackLogic.interruptible = false;
-
+                
                 GameObject proj = Instantiate(projectile, transform.position, Quaternion.Euler(0f, 0f, rotz));
                 moveForward = proj.GetComponent<MoveForward>();
                 moveForward.attack = this;
@@ -75,7 +75,8 @@ public class Attack : MonoBehaviour
             UI.SetActive(false);
             active = true;
             rangeVisualizer.SetActive(true);
-            
+            attackLogic.interruptible = false;
+
 
         }
         else
@@ -96,6 +97,8 @@ public class Attack : MonoBehaviour
         active = false;
         UI.SetActive(true);
         rangeVisualizer.SetActive(false);
+        attackLogic.interruptible = true;
+
     }
-    
+
 }

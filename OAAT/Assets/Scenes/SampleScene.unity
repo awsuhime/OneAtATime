@@ -1490,6 +1490,7 @@ MonoBehaviour:
   ally: 0
   jump: {fileID: 0}
   attack: {fileID: 0}
+  stats: {fileID: 0}
   def: {fileID: 2100000, guid: 8f724585050bef34cab1413f96ba0ab1, type: 2}
   grey: {fileID: 2100000, guid: 3274b63802ef96c47a4589258a01853a, type: 2}
   UI: {fileID: 0}
@@ -4827,6 +4828,7 @@ MonoBehaviour:
   ally: 0
   jump: {fileID: 0}
   attack: {fileID: 0}
+  stats: {fileID: 0}
   def: {fileID: 2100000, guid: 8f724585050bef34cab1413f96ba0ab1, type: 2}
   grey: {fileID: 2100000, guid: 3274b63802ef96c47a4589258a01853a, type: 2}
   UI: {fileID: 0}
@@ -7457,6 +7459,7 @@ GameObject:
   - component: {fileID: 2141175381}
   - component: {fileID: 2141175383}
   - component: {fileID: 2141175388}
+  - component: {fileID: 2141175389}
   m_Layer: 0
   m_Name: YellowPlayer
   m_TagString: Untagged
@@ -7526,6 +7529,7 @@ MonoBehaviour:
   ally: 1
   jump: {fileID: 2141175382}
   attack: {fileID: 2141175381}
+  stats: {fileID: 2141175389}
   def: {fileID: 2100000, guid: 8f724585050bef34cab1413f96ba0ab1, type: 2}
   grey: {fileID: 2100000, guid: 3274b63802ef96c47a4589258a01853a, type: 2}
   UI: {fileID: 651668231}
@@ -7729,6 +7733,22 @@ MonoBehaviour:
   attackCount: 1
   interruptible: 1
   active: 0
+--- !u!114 &2141175389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141175380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d130d0966164d5249a229ba058bb1b10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  baseAttack: 5
+  attack: 5
+  defense: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

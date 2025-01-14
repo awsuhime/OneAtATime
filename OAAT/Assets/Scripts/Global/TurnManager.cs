@@ -195,7 +195,7 @@ public class TurnManager : MonoBehaviour
             }
             else
             {
-                UI.SetActive(true);
+                activePlayer.GetComponent<Attack>().activateUI();
             }
         }
     }

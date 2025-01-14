@@ -11,6 +11,7 @@ public class TurnLogic : MonoBehaviour
     private TurnManager manager;
     [SerializeField] private Jump jump;
     [SerializeField] private Attack attack;
+    [SerializeField] private Stats stats;
     public Material def;
     public Material grey;
     public GameObject UI;
@@ -43,6 +44,8 @@ public class TurnLogic : MonoBehaviour
             jump.origin = transform.position;
             UI.SetActive(true);
             attackText.text = "SP: " + attack.maxAttacks;
+            stats.countdown();
+
         }
     }
 

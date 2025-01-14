@@ -17,9 +17,11 @@ public class Jump : MonoBehaviour
     public Vector3 origin;
     private float vertVel;
     public bool interupt = true;
+    private Stats stats;
 
     public void Start()
     {
+        stats = GetComponent<Stats>();
     }
     public void Activate()
     {

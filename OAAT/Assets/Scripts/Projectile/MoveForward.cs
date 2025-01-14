@@ -6,6 +6,7 @@ using TMPro;
 
 public class MoveForward : MonoBehaviour
 {
+    
     public float damage = 5;
     public int phaseBoost = 1;
     public float knockback = 1;
