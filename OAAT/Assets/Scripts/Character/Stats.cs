@@ -5,44 +5,79 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
-    private Dictionary<string, int> buffs = new Dictionary<string, int>();
-    private Dictionary<string, float> percents = new Dictionary<string, float>();
+    //Attack
+    private Dictionary<string, int> attackBuffs = new Dictionary<string, int>();
+    private Dictionary<string, float> attackPercents = new Dictionary<string, float>();
 
-    public float health = 100;
+    //Defense
+
+    //DoT
+    private Dictionary<string, int> DoT = new Dictionary<string, int>();
+    private Dictionary<string, float> DoTDamage = new Dictionary<string, float>();
+
+    private Health health;
     public float baseAttack = 5;
     public float attack = 5;
+    public float baseDefense = 3;
     public float defense = 3;
     private void Start()
     {
+        if (GetComponent<Health>() != null)
+        {
+            health = GetComponent<Health>();
+
+        }
         attack = baseAttack;
+        defense = baseDefense;
     }
     public void buff(string name, float percent, int duration)
     {
-        if (!buffs.ContainsKey(name))
+        if (!attackBuffs.ContainsKey(name))
         {
             attack *= percent;
-            buffs[name] = duration;
-            percents[name] = percent;
+            attackBuffs[name] = duration;
+            attackPercents[name] = percent;
         }
         else
         {
-            buffs[name] = duration;
+            attackBuffs[name] = duration;
         }
+    }
+    public void dealDoT(string name, float dam, int duration)
+    {
+        DoT[name] = duration;
+        DoTDamage[name] = dam;
     }
     public void countdown()
     {
-        foreach (string i in buffs.Keys.ToList())
+        //Attack Buffs
+        foreach (string i in attackBuffs.Keys.ToList())
         {
-            if (buffs[i] > 1)
+            if (attackBuffs[i] > 1)
             {
-                buffs[i]--;
+                attackBuffs[i]--;
             }
             else
             {
-                attack /= percents[i];
-                buffs.Remove(i);
-                percents.Remove(i);
+                attack /= attackPercents[i];
+                attackBuffs.Remove(i);
+                attackPercents.Remove(i);
             }
         }
+        //DoT
+        foreach (string i in DoT.Keys.ToList())
+        {
+            if (DoT[i] > 1)
+            {
+                DoT[i]--;
+                health.takeDamage(DoTDamage[i]);
+            }
+            else
+            {
+                DoT.Remove(i);
+                DoTDamage.Remove(i);
+            }
+        }
+
     }
 }

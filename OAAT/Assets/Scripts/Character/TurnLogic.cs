@@ -22,7 +22,7 @@ public class TurnLogic : MonoBehaviour
     public float turnTime = 0.5f;
     void Start()
     {
-        
+        stats = GetComponent<Stats>();
         
     }
     public void startTurn()
@@ -34,6 +34,7 @@ public class TurnLogic : MonoBehaviour
 
         spriteRenderer.material = def;
         active = true;
+        stats.countdown();
         if (!ally)
         {
             Invoke(nameof(endTurn), turnTime);
@@ -44,7 +45,6 @@ public class TurnLogic : MonoBehaviour
             jump.origin = transform.position;
             UI.SetActive(true);
             attackText.text = "SP: " + attackLogic.maxAttacks;
-            stats.countdown();
             attackLogic.attacksLeft = attackLogic.maxAttacks;
         }
     }
