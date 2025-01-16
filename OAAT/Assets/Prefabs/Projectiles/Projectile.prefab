@@ -530,8 +530,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6b242cfb2efaa44b8de8b4837583ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 7
-  phaseBoost: 2
+  damageRatio: 0.5
+  phaseBoost: 0.2
   knockback: 1
   explosive: 1
   lifeTime: 0.2

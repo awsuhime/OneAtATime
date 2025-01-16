@@ -41,7 +41,7 @@ public class Health : MonoBehaviour
     }
     public void takeDamage(float damage)
     {
-        float damageTaken = Mathf.Round(damage + comboBonus);
+        float damageTaken = Mathf.Round(Random.Range(0.85f, 1.15f) *damage + comboBonus);
         health -= damageTaken;
         Debug.Log(gameObject.name + " health: " + health);
         GameObject popup = Instantiate(damagePopup, transform.position, Quaternion.identity);

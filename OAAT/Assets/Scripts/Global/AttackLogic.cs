@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 public class AttackLogic : MonoBehaviour
 {
@@ -24,10 +25,19 @@ public class AttackLogic : MonoBehaviour
     public int attackCount = 1;
     public bool interruptible = true;
 
+    public int attacksLeft;
+    public int maxAttacks;
+
+    public TextMeshProUGUI spText;
+
     public bool active;
 
 
-
+    public void attackUse()
+    {
+        attacksLeft--;
+        spText.text = "SP: " + attacksLeft;
+    }
     public void useR()
     {
         R.Invoke();

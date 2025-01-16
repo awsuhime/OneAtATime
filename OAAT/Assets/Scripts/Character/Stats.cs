@@ -12,7 +12,10 @@ public class Stats : MonoBehaviour
     public float baseAttack = 5;
     public float attack = 5;
     public float defense = 3;
-    
+    private void Start()
+    {
+        attack = baseAttack;
+    }
     public void buff(string name, float percent, int duration)
     {
         if (!buffs.ContainsKey(name))

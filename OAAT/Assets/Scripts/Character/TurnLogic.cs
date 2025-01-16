@@ -43,9 +43,9 @@ public class TurnLogic : MonoBehaviour
             attackManager.configureSpells();
             jump.origin = transform.position;
             UI.SetActive(true);
-            attackText.text = "SP: " + attack.maxAttacks;
+            attackText.text = "SP: " + attackLogic.maxAttacks;
             stats.countdown();
-
+            attackLogic.attacksLeft = attackLogic.maxAttacks;
         }
     }
 
@@ -57,7 +57,6 @@ public class TurnLogic : MonoBehaviour
         {
             UI.SetActive(false);
             
-            attack.attacksLeft = attack.maxAttacks;
         }
         
         active = false;

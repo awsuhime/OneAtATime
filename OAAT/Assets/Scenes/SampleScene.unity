@@ -205,9 +205,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1706540228}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
-        m_MethodName: callAttack
+      - m_Target: {fileID: 1706540231}
+        m_TargetAssemblyTypeName: AttackManager, Assembly-CSharp
+        m_MethodName: R
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2333,9 +2333,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1706540228}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
-        m_MethodName: callAttack
+      - m_Target: {fileID: 1706540231}
+        m_TargetAssemblyTypeName: AttackManager, Assembly-CSharp
+        m_MethodName: V
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3278,9 +3278,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1706540228}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
-        m_MethodName: callAttack
+      - m_Target: {fileID: 1706540231}
+        m_TargetAssemblyTypeName: AttackManager, Assembly-CSharp
+        m_MethodName: H
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3579,9 +3579,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1706540228}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
-        m_MethodName: callAttack
+      - m_Target: {fileID: 1706540231}
+        m_TargetAssemblyTypeName: AttackManager, Assembly-CSharp
+        m_MethodName: G
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4116,9 +4116,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1706540228}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
-        m_MethodName: callAttack
+      - m_Target: {fileID: 1706540231}
+        m_TargetAssemblyTypeName: AttackManager, Assembly-CSharp
+        m_MethodName: N
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4935,9 +4935,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1706540228}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
-        m_MethodName: callAttack
+      - m_Target: {fileID: 1706540231}
+        m_TargetAssemblyTypeName: AttackManager, Assembly-CSharp
+        m_MethodName: T
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5068,9 +5068,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1706540228}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
-        m_MethodName: callAttack
+      - m_Target: {fileID: 1706540231}
+        m_TargetAssemblyTypeName: AttackManager, Assembly-CSharp
+        m_MethodName: B
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5201,9 +5201,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1706540228}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
-        m_MethodName: callAttack
+      - m_Target: {fileID: 1706540231}
+        m_TargetAssemblyTypeName: AttackManager, Assembly-CSharp
+        m_MethodName: Y
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6130,9 +6130,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1706540228}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
-        m_MethodName: callAttack
+      - m_Target: {fileID: 1706540231}
+        m_TargetAssemblyTypeName: AttackManager, Assembly-CSharp
+        m_MethodName: F
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7460,6 +7460,7 @@ GameObject:
   - component: {fileID: 2141175383}
   - component: {fileID: 2141175388}
   - component: {fileID: 2141175389}
+  - component: {fileID: 2141175390}
   m_Layer: 0
   m_Name: YellowPlayer
   m_TagString: Untagged
@@ -7479,8 +7480,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9036414e1de861a42a2873d8565e0aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAttacks: 2
-  attacksLeft: 0
   UI: {fileID: 651668231}
   active: 0
   rangeVisualizer: {fileID: 459814800}
@@ -7489,6 +7488,7 @@ MonoBehaviour:
   turnManager: {fileID: 1706540228}
   attackText: {fileID: 1830036697}
   interupt: 1
+  stats: {fileID: 0}
   currentID: 0
 --- !u!114 &2141175382
 MonoBehaviour:
@@ -7706,7 +7706,19 @@ MonoBehaviour:
         m_CallState: 2
   F:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2141175390}
+        m_TargetAssemblyTypeName: AttackBoost, Assembly-CSharp
+        m_MethodName: Activate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   V:
     m_PersistentCalls:
       m_Calls: []
@@ -7730,8 +7742,12 @@ MonoBehaviour:
       m_Calls: []
   spellNames:
   - Fireball
-  attackCount: 1
+  - Attack Boost
+  attackCount: 2
   interruptible: 1
+  attacksLeft: 0
+  maxAttacks: 2
+  spText: {fileID: 1830036697}
   active: 0
 --- !u!114 &2141175389
 MonoBehaviour:
@@ -7746,9 +7762,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  baseAttack: 5
+  baseAttack: 15
   attack: 5
   defense: 3
+--- !u!114 &2141175390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141175380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b26f79a95bc9045a6c9cb20a88b2a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buff: 1.75
+  duration: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

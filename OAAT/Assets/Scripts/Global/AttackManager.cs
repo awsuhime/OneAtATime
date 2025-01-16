@@ -82,4 +82,47 @@ public class AttackManager : MonoBehaviour
 
         }
     }
+
+    public void R()
+    {
+        logic.useR();
+    }
+
+    public void F()
+    {
+        logic.useF();
+    }
+
+    public void V()
+    {
+        logic.useV();
+    }
+
+    public void T()
+    {
+        logic.useT();
+    }
+
+    public void G()
+    {
+        logic.useG();
+    }
+
+    public void B()
+    {
+        logic.useB();
+    }
+
+    public void Y()
+    {
+        logic.useY();
+    }
+    public void H()
+    {
+        logic.useH();
+    }
+    public void N()
+    {
+        logic.useN();
+    }
 }

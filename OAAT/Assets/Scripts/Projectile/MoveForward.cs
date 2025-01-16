@@ -6,9 +6,9 @@ using TMPro;
 
 public class MoveForward : MonoBehaviour
 {
-    
-    public float damage = 5;
-    public int phaseBoost = 1;
+    public float attackStat = 0;
+    public float damageRatio = 0.5f;
+    public float phaseBoost = 0.2f;
     public float knockback = 1;
     public bool explosive = false;
     public float lifeTime;
@@ -87,7 +87,7 @@ public class MoveForward : MonoBehaviour
 
         }
         //range = Instantiate(rangeVisualizer, transform.position, transform.rotation);
-        damage += phaseBoost;
+        damageRatio += phaseBoost;
         range.SetActive(true);
         
         
@@ -159,7 +159,7 @@ public class MoveForward : MonoBehaviour
         {
             if (Vector2.Distance(i.gameObject.transform.position, transform.position) < explosiveRange)
             {
-                i.takeDamage(damage);
+                i.takeDamage(damageRatio * attackStat);
                 hits++;
                 if (knockback > 0)
                 {
