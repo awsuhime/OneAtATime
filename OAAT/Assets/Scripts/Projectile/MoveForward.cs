@@ -6,6 +6,7 @@ using TMPro;
 
 public class MoveForward : MonoBehaviour
 {
+    [Header("Stats")]
     public float attackStat = 0;
     public float damageRatio = 0.5f;
     public float phaseBoost = 0.2f;
@@ -16,24 +17,31 @@ public class MoveForward : MonoBehaviour
     public int phases = 2;
     public int startUpPhases = 1;
     public float explosiveRange = 3;
+
+    [Header("Assignable Scripts")]
+    public GameObject range;
     public SpriteRenderer spriteRenderer;
     public Material def;
     public Material grey;
-    private bool active;
-    public GameObject range;
     public TurnManager turnManager;
-    public int subTurnID;
-    public GameObject self;
-    public GameObject UI;
     public Attack attack;
-    public bool assigned = false;
+    private Health health;
+
+    [Header("Game objects")]
+    public GameObject UI;
     public TextMeshProUGUI phaseText;
     public TextMeshProUGUI IDText;
-    public int ID;
     public GameObject particles;
-    private float startTime;
-    private Health health;
+
+    [Header("Technical")]
+    private bool active;
+    public int subTurnID;
+    public bool assigned = false;
+    public int ID;
     private int hits;
+    private float startTime;
+
+
     void FixedUpdate()
     {
         if (active)

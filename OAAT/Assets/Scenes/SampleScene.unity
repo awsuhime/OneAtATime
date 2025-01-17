@@ -2711,7 +2711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &841405494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2849,14 +2849,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI: {fileID: 651668231}
-  active: 0
   rangeVisualizer: {fileID: 239199888}
-  cam: {fileID: 519420031}
   projectile: {fileID: 7385369777565365727, guid: b6da1573117f0bf4db90256b49eaeb0e, type: 3}
   turnManager: {fileID: 1706540228}
   attackText: {fileID: 1830036697}
-  interupt: 1
+  cam: {fileID: 519420031}
   stats: {fileID: 0}
+  active: 0
+  interupt: 1
   currentID: 0
 --- !u!114 &841405499
 MonoBehaviour:
@@ -8390,14 +8390,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI: {fileID: 651668231}
-  active: 0
   rangeVisualizer: {fileID: 459814800}
-  cam: {fileID: 519420031}
   projectile: {fileID: 7385369777565365727, guid: b6da1573117f0bf4db90256b49eaeb0e, type: 3}
   turnManager: {fileID: 1706540228}
   attackText: {fileID: 1830036697}
-  interupt: 1
+  cam: {fileID: 519420031}
   stats: {fileID: 0}
+  active: 0
+  interupt: 1
   currentID: 0
 --- !u!114 &2141175382
 MonoBehaviour:

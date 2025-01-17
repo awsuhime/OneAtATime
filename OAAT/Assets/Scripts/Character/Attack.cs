@@ -5,23 +5,32 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
+    [Header("Game Objects")]
     public GameObject UI;
-    public bool active;
     public GameObject rangeVisualizer;
-    public Camera cam;
     public GameObject projectile;
+
+    [Header("Assignables")]
     public TurnManager turnManager;
+    public TextMeshProUGUI attackText;
+    public Camera cam;
+    public Stats stats;
+
+    //Assigned mid script
     private AttackLogic attackLogic;
     private UIManager uiManager;
     private MoveForward moveForward;
-    public TextMeshProUGUI attackText;
+
+    [Header("Technical")]
+    public bool active;
     public bool interupt = true;
-    public Stats stats;
     public int currentID = 0;
+
     //Mouse vars
     private Vector3 rotation;
     private Vector3 mousePos;
     private float rotz;
+
     public void Start()
     {
         turnManager = FindObjectOfType<TurnManager>();
