@@ -61,6 +61,14 @@ public class Health : MonoBehaviour
 
     }
 
+    public void simpleKnockback(Vector3 simpleRot, float knockback)
+    {
+        transform.rotation = Quaternion.Euler(simpleRot);
+        kbEnd = knockback;
+        kb = true;
+        kbStart = Time.time;
+    }
+
     public void resetCombo()
     {
         comboBonus = 0;
