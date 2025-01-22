@@ -12,7 +12,7 @@ public class TurnManager : MonoBehaviour
     public GameObject _camera;
     private int subTurn = 0;
     //List<MoveForward> subTurns;
-    public MoveForward[] subTurns;
+    public SubTurnLogic[] subTurns;
     private int subCount = 0;
     public GameObject UI;
 
@@ -80,7 +80,7 @@ public class TurnManager : MonoBehaviour
     {
         if (subTurn < subCount)
         {
-            var newSub = new List<MoveForward>();
+            var newSub = new List<SubTurnLogic>();
             newSub = subTurns.ToList();
             Debug.Log("SubTurn: " + subTurn);
             for (int i = 0; i < newSub.Count; i++)
@@ -106,11 +106,11 @@ public class TurnManager : MonoBehaviour
     public void removeSubTurn(int removeID)
     {
         subCount--;
-        var newSubs = new List<MoveForward>();
-        MoveForward culprit = subTurns[0];
+        var newSubs = new List<SubTurnLogic>();
+        SubTurnLogic culprit = subTurns[0];
         //Find Dead ID
         newSubs = subTurns.ToList();
-        foreach (MoveForward i in newSubs)
+        foreach (SubTurnLogic i in newSubs)
         {
             if (i.ID == removeID)
             {
@@ -123,8 +123,8 @@ public class TurnManager : MonoBehaviour
         subTurns = newSubs.ToArray();
 
         //Update IDs
-        var changeSubs = new List<MoveForward>();
-        foreach (MoveForward i in subTurns)
+        var changeSubs = new List<SubTurnLogic>();
+        foreach (SubTurnLogic i in subTurns)
         {
             if (i.ID > removeID)
             {
@@ -152,9 +152,9 @@ public class TurnManager : MonoBehaviour
 
     public void addSubTurn()
     {
-        MoveForward[] moveForward = FindObjectsOfType<MoveForward>();
-        subTurns = moveForward;
-        foreach (MoveForward i in moveForward)
+        SubTurnLogic[] STLogic = FindObjectsOfType<SubTurnLogic>();
+        subTurns = STLogic;
+        foreach (SubTurnLogic i in STLogic)
         {
             if (!i.assigned)
             {

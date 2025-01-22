@@ -13,6 +13,10 @@ public class Health : MonoBehaviour
     public float comboBonusMultiplier;
     public float comboBonus;
 
+    private float immuneStart;
+    public float immunity = 0.2f;
+    private bool immune = false;
+
     public GameObject damagePopup;
     private DamPopScript damPop;
     public TurnManager turnManager;
@@ -24,6 +28,14 @@ public class Health : MonoBehaviour
 
     public void Update()
     {
+        if (immune)
+        {
+            float immuneLeft = Time.time - immuneStart;
+            if (immuneLeft > immunity)
+            {
+                immune = false;
+            }
+        }
         if (kb)
         {
             float kbLeft = Time.time - kbStart;
@@ -41,32 +53,67 @@ public class Health : MonoBehaviour
     }
     public void takeDamage(float damage)
     {
-        float damageTaken = Mathf.Round(Random.Range(0.85f, 1.15f) *damage + comboBonus);
-        health -= damageTaken;
-        Debug.Log(gameObject.name + " health: " + health);
-        GameObject popup = Instantiate(damagePopup, transform.position, Quaternion.identity);
-        damPop = popup.GetComponent<DamPopScript>();
-        damPop.damageNumber(damageTaken);
-        comboBonus += damage / 5 * comboBonusMultiplier;
+        if (!immune)
+        {
+            float damageTaken = Mathf.Round(Random.Range(0.85f, 1.15f) * damage + comboBonus);
+            health -= damageTaken;
+            Debug.Log(gameObject.name + " health: " + health);
+            GameObject popup = Instantiate(damagePopup, transform.position, Quaternion.identity);
+            damPop = popup.GetComponent<DamPopScript>();
+            damPop.damageNumber(damageTaken);
+            comboBonus += damage / 5 * comboBonusMultiplier;
+            
+        }
+        
     }
 
     public void takeKnockback(Vector3 dir, float knockback)
     {
-        Vector3 rotation = transform.position - dir;
-        float rotz = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rotz);
-        kbEnd = knockback;
-        kb = true;
-        kbStart = Time.time;
+        if (!immune)
+        {
+            if (kb)
+            {
+                turnManager.removeKnockback();
+            }
+            Vector3 rotation = transform.position - dir;
+            float rotz = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, rotz);
+            kbEnd = knockback;
+            kb = true;
+            kbStart = Time.time;
+        }
+        else
+        {
+            turnManager.removeKnockback();
+        }
+
 
     }
 
     public void simpleKnockback(Vector3 simpleRot, float knockback)
     {
-        transform.rotation = Quaternion.Euler(simpleRot);
-        kbEnd = knockback;
-        kb = true;
-        kbStart = Time.time;
+        if (!immune)
+        {
+            if (kb)
+            {
+                turnManager.removeKnockback();
+            }
+            transform.rotation = Quaternion.Euler(simpleRot);
+            kbEnd = knockback;
+            kb = true;
+            kbStart = Time.time;
+        }
+        else
+        {
+            turnManager.removeKnockback();
+
+        }
+    }
+
+    public void Immunity()
+    {
+        immune = true;
+        immuneStart = Time.time;
     }
 
     public void resetCombo()

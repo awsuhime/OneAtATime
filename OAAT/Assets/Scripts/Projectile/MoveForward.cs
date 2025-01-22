@@ -26,18 +26,13 @@ public class MoveForward : MonoBehaviour
     public TurnManager turnManager;
     public Attack attack;
     private Health health;
+    private SubTurnLogic STLogic;
 
     [Header("Game objects")]
-    public GameObject UI;
-    public TextMeshProUGUI phaseText;
-    public TextMeshProUGUI IDText;
     public GameObject particles;
 
     [Header("Technical")]
     private bool active;
-    public int subTurnID;
-    public bool assigned = false;
-    public int ID;
     private int hits;
     private float startTime;
 
@@ -59,7 +54,6 @@ public class MoveForward : MonoBehaviour
         if (startUpPhases == 0)
         {
             phases--;
-            phaseText.text = "Phases: " + phases.ToString();
 
             active = false;
             if (phases <= 0)
@@ -71,7 +65,7 @@ public class MoveForward : MonoBehaviour
                 }
                 else
                 {
-                    turnManager.removeSubTurn(ID);
+                    turnManager.removeSubTurn(STLogic.ID);
 
                     Destroy(gameObject);
                 }
@@ -117,27 +111,17 @@ public class MoveForward : MonoBehaviour
 
     }
 
-    public void Initiate(int textID)
+    public void Initiate()
     {
         turnManager = FindObjectOfType<TurnManager>();
-        //Invoke(nameof(endPhase), lifeTime);
+        STLogic = GetComponent<SubTurnLogic>();
         startTime = Time.time;
         active = true;
         range.transform.Rotate(0, 0, -90);
-        phaseText.text = "Phases: " + phases.ToString();
-        ID = textID;
-        textID++;
-        IDText.text = textID.ToString();
         range.SetActive(false);
     }
 
-    public void updateID()
-    {
-        IDText.text = ID.ToString();
-        ID--;
-        
-
-    }
+    
 
     public void OnTriggerStay2D(Collider2D collision)
     {
@@ -177,7 +161,7 @@ public class MoveForward : MonoBehaviour
             }
         }
         Instantiate(particles, transform.position, transform.rotation);
-        turnManager.removeSubTurn(ID);
+        turnManager.removeSubTurn(STLogic.ID);
 
         if (startUpPhases > 0 && turnManager.knockbacks == 0)
         {

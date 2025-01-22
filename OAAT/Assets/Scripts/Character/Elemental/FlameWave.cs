@@ -8,6 +8,7 @@ public class FlameWave : MonoBehaviour
     [Header("Stats")]
     public float attackStat = 0;
     public float damageRatio = 0.5f;
+    public float dotRatio = 0.1f;
     public float phaseBoost = 0.2f;
     public float knockback = 1;
     public bool explosive = false;
@@ -25,18 +26,13 @@ public class FlameWave : MonoBehaviour
     public TurnManager turnManager;
     public FlameSword attack;
     private Health health;
+    private SubTurnLogic STLogic;
 
     [Header("Game objects")]
-    public GameObject UI;
-    public TextMeshProUGUI phaseText;
-    public TextMeshProUGUI IDText;
     public GameObject particles;
 
     [Header("Technical")]
     private bool active;
-    public int subTurnID;
-    public bool assigned = false;
-    public int ID;
     private int hits;
     private float startTime;
 
@@ -58,7 +54,6 @@ public class FlameWave : MonoBehaviour
         if (startUpPhases == 0)
         {
             phases--;
-            phaseText.text = "Phases: " + phases.ToString();
 
             active = false;
             if (phases <= 0)
@@ -70,7 +65,7 @@ public class FlameWave : MonoBehaviour
                 }
                 else
                 {
-                    turnManager.removeSubTurn(ID);
+                    turnManager.removeSubTurn(STLogic.ID);
 
                     Destroy(gameObject);
                 }
@@ -116,27 +111,17 @@ public class FlameWave : MonoBehaviour
 
     }
 
-    public void Initiate(int textID)
+    public void Initiate()
     {
         turnManager = FindObjectOfType<TurnManager>();
-        //Invoke(nameof(endPhase), lifeTime);
+        STLogic = GetComponent<SubTurnLogic>();
         startTime = Time.time;
         active = true;
         range.transform.Rotate(0, 0, -90);
-        phaseText.text = "Phases: " + phases.ToString();
-        ID = textID;
-        textID++;
-        IDText.text = textID.ToString();
         range.SetActive(false);
     }
 
-    public void updateID()
-    {
-        IDText.text = ID.ToString();
-        ID--;
 
-
-    }
 
     public void OnTriggerStay2D(Collider2D collision)
     {
@@ -146,9 +131,13 @@ public class FlameWave : MonoBehaviour
             if (collision.gameObject.CompareTag("Enemy"))
             {
                 Health hit = collision.GetComponent<Health>();
+                Stats stat = collision.GetComponent<Stats>();
+                stat.dealDoT("FlameWave", Mathf.Round(dotRatio * attackStat) + 1, 3);
                 hit.takeDamage(damageRatio * attackStat);
                 hits++;
+                turnManager.knockbacks++;
                 hit.simpleKnockback(transform.eulerAngles, knockback);
+                hit.Immunity();
             }
 
 
@@ -175,7 +164,7 @@ public class FlameWave : MonoBehaviour
             }
         }
         Instantiate(particles, transform.position, transform.rotation);
-        turnManager.removeSubTurn(ID);
+        turnManager.removeSubTurn(STLogic.ID);
 
         if (startUpPhases > 0 && turnManager.knockbacks == 0)
         {

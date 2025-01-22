@@ -441,6 +441,7 @@ GameObject:
   - component: {fileID: 6468968463811869921}
   - component: {fileID: 844478707848712978}
   - component: {fileID: 3415306687889647062}
+  - component: {fileID: 521800955562787985}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -530,6 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6b242cfb2efaa44b8de8b4837583ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackStat: 0
   damageRatio: 0.5
   phaseBoost: 0.2
   knockback: 1
@@ -539,19 +541,12 @@ MonoBehaviour:
   phases: 2
   startUpPhases: 1
   explosiveRange: 3.9
+  range: {fileID: 2672562219081771169}
   spriteRenderer: {fileID: 6468968463811869921}
   def: {fileID: 2100000, guid: 8f724585050bef34cab1413f96ba0ab1, type: 2}
   grey: {fileID: 2100000, guid: 3274b63802ef96c47a4589258a01853a, type: 2}
-  range: {fileID: 2672562219081771169}
   turnManager: {fileID: 0}
-  subTurnID: 0
-  self: {fileID: 7385369777565365727}
-  UI: {fileID: 0}
   attack: {fileID: 0}
-  assigned: 0
-  phaseText: {fileID: 2294481065402802223}
-  IDText: {fileID: 1066315649600918521}
-  ID: 0
   particles: {fileID: 1264663472522015281, guid: f557ef7f4b53da1418f36f3482712d7f, type: 3}
 --- !u!58 &3415306687889647062
 CircleCollider2D:
@@ -588,6 +583,51 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &521800955562787985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7385369777565365727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f750f1d9e9048cc4ea781a51ab2476a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPhaseChild:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 844478707848712978}
+        m_TargetAssemblyTypeName: MoveForward, Assembly-CSharp
+        m_MethodName: startPhase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  initiateChild:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 844478707848712978}
+        m_TargetAssemblyTypeName: MoveForward, Assembly-CSharp
+        m_MethodName: Initiate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  IDText: {fileID: 1066315649600918521}
+  ID: 0
+  assigned: 0
 --- !u!1 &8337953439672844827
 GameObject:
   m_ObjectHideFlags: 0
