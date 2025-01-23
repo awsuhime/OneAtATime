@@ -7828,6 +7828,7 @@ MonoBehaviour:
   UI: {fileID: 651668231}
   active: 0
   jumpTime: 1
+  moveRange: 10
   horiJumpRange_: 10
   vertJumpRange_: 10
   jumpRangeIndicator: {fileID: 1618258211}

@@ -8,6 +8,7 @@ public class Jump : MonoBehaviour
     public GameObject UI;
     public bool active = false;
     public float jumpTime = 1f;
+    public float moveRange;
     public float horiJumpRange_;
     public float vertJumpRange_;
     public GameObject jumpRangeIndicator;
@@ -40,25 +41,34 @@ public class Jump : MonoBehaviour
     {
         if (active)
         {
-            float horiMin = origin.x - horiJumpRange_;
-            float horiMax = origin.x + horiJumpRange_;
-            float vertMin = origin.y - vertJumpRange_;
-            float vertMax = origin.y + vertJumpRange_;
-
-
-
             Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-            mousePos = new Vector3(Mathf.Clamp(mousePos.x, horiMin, horiMax), Mathf.Clamp(mousePos.y, vertMin, vertMax), 0);
             
-            hoverIndicator.transform.position = mousePos;
-            float g = Physics2D.gravity.y * rb.gravityScale;
-            //vertVel = -g * Time.fixedDeltaTime / 2f + Mathf.Sqrt(-2f * g * vertJumpRange_);
+                //Find Angle between origin and mouse
+                float adj = mousePos.x - origin.x;
+                float opp = mousePos.y - origin.y;
+                float tangAngle = Mathf.Atan(Mathf.Abs(opp) / Mathf.Abs(adj));
+                float distance = Mathf.Abs(opp) / Mathf.Sin(tangAngle);
+            if (distance > moveRange)
+            {
+                //Find sine and cosine for the unit circle
+                float siny = moveRange * Mathf.Sin(tangAngle);
+                float cosx = moveRange * Mathf.Cos(tangAngle);
+
+                mousePos = new Vector3(origin.x + cosx * Mathf.Sign(adj), origin.y + siny * Mathf.Sign(opp), 0);
+            }
+                
+
+
+            
+
+
+            hoverIndicator.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
+           
 
             if (Input.GetMouseButtonDown(0))
             {
                 interupt = false;
                 transform.position = mousePos;
-                //rb.AddForce(new(0, vertVel), ForceMode2D.Impulse);
                 active = false;
                 jumpRangeIndicator.SetActive(false);
                 hoverIndicator.SetActive(false);
