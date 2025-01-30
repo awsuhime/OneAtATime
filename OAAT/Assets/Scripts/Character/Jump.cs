@@ -68,7 +68,7 @@ public class Jump : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 interupt = false;
-                transform.position = mousePos;
+                transform.position = new Vector3(mousePos.x, mousePos.y, 0);
                 active = false;
                 jumpRangeIndicator.SetActive(false);
                 hoverIndicator.SetActive(false);
